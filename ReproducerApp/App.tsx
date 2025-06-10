@@ -8,10 +8,13 @@
 import React from 'react';
 import type {PropsWithChildren} from 'react';
 import {
+  NativeModules,
+  Platform,
   ScrollView,
   StatusBar,
   StyleSheet,
   Text,
+  TouchableOpacity,
   useColorScheme,
   View,
 } from 'react-native';
@@ -23,6 +26,20 @@ import {
   LearnMoreLinks,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
+
+import ActivityExample from './ActivityExample'
+
+export const openActivity = async () => {
+  if (Platform.OS === 'android') {
+    NativeModules.ActivityModule.startLinkActivityForResult(
+      (result) => {
+        console.log("RESULT")
+        console.log(result)
+      },
+    );
+  } else {
+  }
+};
 
 type SectionProps = PropsWithChildren<{
   title: string;
@@ -83,26 +100,12 @@ function App(): React.JSX.Element {
         <View style={{paddingRight: safePadding}}>
           <Header/>
         </View>
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-            paddingHorizontal: safePadding,
-            paddingBottom: safePadding,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
+        <View styles={styles.body}>
+          <TouchableOpacity  onPress={() => openActivity()}>
+            <View style={styles.appButtonContainer}>
+              <Text style={styles.appButtonText}>Open Activity</Text>
+            </View>
+          </TouchableOpacity>
         </View>
       </ScrollView>
     </View>
@@ -125,6 +128,20 @@ const styles = StyleSheet.create({
   },
   highlight: {
     fontWeight: '700',
+  },
+  appButtonContainer: {
+    elevation: 4,
+    backgroundColor: '#000',
+    width: '100%',
+    paddingVertical: 16,
+    paddingHorizontal: 16,
+  },
+  appButtonText: {
+    fontSize: 18,
+    color: '#fff',
+    fontWeight: 'bold',
+    alignSelf: 'center',
+    textTransform: 'uppercase',
   },
 });
 

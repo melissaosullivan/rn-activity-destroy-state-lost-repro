@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:gravity="center"
+  android:layout_height="match_parent"
+  android:layout_width="match_parent"
+  android:orientation="vertical"
+  tools:context=".SecondActivity">
+
+  <TextView
+    android:id="@+id/web_button"
+    android:background="?android:selectableItemBackground"
+    android:clickable="true"
+    android:focusable="true"
+    android:layout_height="wrap_content"
+    android:layout_width="wrap_content"
+    android:padding="16dp"
+    android:layout_marginBottom="16dp"
+    android:text="Go to Web"
+    android:textSize="32sp" />
+
+  <TextView
+    android:id="@+id/result_button"
+    android:background="?android:selectableItemBackground"
+    android:clickable="true"
+    android:focusable="true"
+    android:layout_height="wrap_content"
+    android:layout_width="wrap_content"
+    android:padding="16dp"
+    android:text="Return Result"
+    android:textSize="32sp" />
+
+</LinearLayout>
