@@ -17,17 +17,19 @@ When an Android activity starts another activity (like a browser) and the app is
 - Originally reported in [react-native-plaid-link-sdk](https://github.com/plaid/react-native-plaid-link-sdk)
 - Similar to [Issue #21455](https://github.com/facebook/react-native/issues/21455)
 
-## Prerequisites
 
-Enable the following settings in Android Developer Options:
-1. Set "Background process limit" to "No background processes"
-2. Enable "Don't keep activities" option
+## Building the App
 
-These settings help simulate low memory conditions where apps are more likely to be killed in the background.
+```
+cd ReproducerApp
+npm install
+npm start
+npm run android
+```
 
 ## Reproduction Steps
 
-1. Build and run the app on an Android device
+1. Run the app on an Android device
 2. Tap the "Open Activity" button
 3. In the second activity, tap "Go to Web" to open Google in a browser
 4. Use the following command to forcibly kill the app:
@@ -38,7 +40,8 @@ These settings help simulate low memory conditions where apps are more likely to
    ```
    adb shell am start -n com.reproducerapp/.RedirectActivity -d "redirect://crash"
    ```
-6. Check logcat for missing "RESULT" and "Completed" logs
+6. Tap "Return Result" in the activity
+7. Check logcat for missing "RESULT" and "Completed" logs
 
 ### Expected Behavior
 When returning to the app after it's been killed, the callback should work and you should see "RESULT" and "Completed" in the logs.
